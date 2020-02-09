@@ -1,0 +1,63 @@
+import _ from 'lodash'
+import { Socket as PhoenixSocket } from 'phoenix'
+
+const ChatSocket = {
+  socket: null,
+
+  connect(token, silent = false) {
+    if (!this.socket) {
+      this.socket = new PhoenixSocket('/socket', {
+        params: {token: token}
+      })
+      this.socket.connect()
+      console.log("Socket connected!")
+    } else if (!this.connAvaiable()) {
+      this.socket.connect()
+      console.log("Socket reconnected!")
+    } else if (!silent) {
+      console.warn("Try to connect a connected socket.")
+    }
+  },
+
+  connAvaiable() {
+    return this.socket && (this.socket.connectionState() === 'open' ||
+                           this.socket.connectionState() === 'connecting')
+  },
+
+  disconnect() {
+    if (!this.socket) { return }
+    this.socket.disconnect(()=> {
+      this.socket.reconnectTimer.reset()
+      this.socket = null
+      console.log('Socket disconnected!')
+    })
+  },
+
+  socketAvaiable() {
+    this.socket && this.socket.connectionState() === 'closing'
+  },
+
+  findTalk(id, callback, prefix = 'talk') {
+    if (!this.socket) {
+      console.error("No socket connection, please connect first")
+      return false
+    }
+    let topicName = `${prefix}:${id}`
+    let foundTalk = _.find(this.socket.talk, (ch)=> ch.topic === topicName)
+    if (!foundTalk) {
+      foundTalk = this.socket.talk(topicName, {})
+    }
+    if (foundTalk.state === 'closed') {
+      foundTalk.join().receive('ok', data => {
+        console.log(`Joined ${foundTalk.topic}`)
+        if (_.isFunction(callback)) {
+          callback(data)
+        }
+      })
+    }
+    return foundTalk
+  }
+
+}
+
+export default ChatSocket

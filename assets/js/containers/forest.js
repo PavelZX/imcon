@@ -27,10 +27,10 @@ class Forest extends Component {
     dispatch(fetchTalkIfNeeded())
   }
   render() {
-    const {currentUser, dispatch, children, tree, socket, currentTree, talks, local, error, directTalk, user} = this.props
+    const {currentUser, dispatch, tree, socket, currentTree, talks, local, error, directTalk, user} = this.props
 
     return (
-      <React.Fragment>
+      <div id="main_container">
         <Cap />
         <Grid divided='vertically'>
           <Grid.Row>
@@ -50,11 +50,11 @@ class Forest extends Component {
               <Sidebar dispatch={dispatch} talks={talks} directTalk={directTalk} user={user}/>  
             </Grid.Column>
             <Grid.Column>
-              { children || 'Welcome to ExChat! A Slack-like app by Elixir, Phoenix & React(redux)' }
+              {  || 'Welcome to ExChat! A Slack-like app by Elixir, Phoenix & React(redux)' }
             </Grid.Column>
           </Grid.Row>
         </Grid>
-      </React.Fragment>
+      </div>
     )
   }
 }

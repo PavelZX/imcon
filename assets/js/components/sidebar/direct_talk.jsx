@@ -6,14 +6,14 @@ import { openJoinDirectTalkModal } from '../../redux/actions/local'
 import TalkNameBar from '../shared/talk_name_bar'
 
 class DirectTalk extends React.Component {
-  render() {
+  render () => {
     const {dispatch, talks} = this.props
     let items = talks.directIds.map(id => talks.items[id])
     return (
       <div>
         {this._renderDirectTalkHeader()}
         <List items={items}
-              renderItem={::this._renderDirectTalk}
+              renderItem={this._renderDirectTalk}
               />
       </div>
     )
@@ -48,7 +48,7 @@ class DirectTalk extends React.Component {
     )
   }
 
-  _renderDirectTalkHeader() {
+  _renderDirectTalkHeader () => {
     const {dispatch} = this.props
     return (
       <div className='list-unstyled sidebar-item header-item'>

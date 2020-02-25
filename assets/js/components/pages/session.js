@@ -18,7 +18,7 @@ class Session extends React.Component {
     dispatch(Actions.signIn(email.value, password.value))
   }
 
-  _renderError() {
+  _renderError = () => {
     let { error } = this.props
 
     if (!error) return false
@@ -34,12 +34,12 @@ class Session extends React.Component {
     return (
       <main>
 
-          <Link to='/ic'>
-          <Image src='/images/logo.png' size='small' centered/>
-            </Link>
+        <Link to='/ic'>
+        <Image src='/images/logo.png' size='small' centered/>
+          </Link>
 
-        <Form id="sign_in_form" onSubmit={::this._handleSubmit}>
-        {::this._renderError()}
+        <Form id="sign_in_form" onSubmit={this._handleSubmit}>
+        {this._renderError()}
           <Form.Group widths={2}>
             <input
                 ref="email"

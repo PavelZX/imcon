@@ -6,7 +6,8 @@ import Actions              from '../../redux/actions/branch'
 import PageClick            from 'react-page-click'
 
 export default class LeafletForm extends React.Component {
-  _handleSubmit(e) {
+
+  _handleSubmit = (e) => {
     e.preventDefault();
 
     let { dispatch, channel } = this.props;
@@ -21,7 +22,7 @@ export default class LeafletForm extends React.Component {
     this.props.onSubmit();
   }
 
-  _renderErrors(field) {
+  _renderErrors = (field) => {
     const { errors } = this.props;
 
     if (!errors) return false;
@@ -41,7 +42,7 @@ export default class LeafletForm extends React.Component {
     this.refs.name.focus();
   }
 
-  _handleCancelClick(e) {
+  _handleCancelClick = (e) => {
     e.preventDefault();
 
     this.props.onCancelClick();
@@ -49,12 +50,12 @@ export default class LeafletForm extends React.Component {
 
   render() {
     return (
-      <PageClick onClick={::this._handleCancelClick}>
+      <PageClick onClick={this._handleCancelClick}>
         <div className="card form">
-          <form id="new_leaflet_form" onSubmit={::this._handleSubmit}>
+          <form id="new_leaflet_form" onSubmit={this._handleSubmit}>
             <textarea ref="name" id="leaflet_name" type="text" required="true" rows={5}/>
-            {::this._renderErrors('name')}
-            <Button type="submit">Добавить</Button> или <a href="#" onClick={::this._handleCancelClick}>отмена</a>
+            {this._renderErrors('name')}
+            <Button type="submit">Добавить</Button> или <a href="#" onClick={this._handleCancelClick}>отмена</a>
           </form>
         </div>
       </PageClick>

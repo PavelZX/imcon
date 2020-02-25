@@ -1,4 +1,6 @@
 import React from 'react'
+
+import { Button, Header, Image, Modal } from 'semantic-ui-react'
 import { PropTypes }          from 'prop-types'
 import { connect } from 'react-redux'
 

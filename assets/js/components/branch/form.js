@@ -10,7 +10,7 @@ export default class BranchForm extends React.Component {
     this.refs.name.focus();
   }
 
-  _handleSubmit(e) {
+  _handleSubmit = (e) => {
     e.preventDefault();
 
     const { dispatch, channel, branch } = this.props;
@@ -24,7 +24,7 @@ export default class BranchForm extends React.Component {
     dispatch(Actions.save(channel, data));
   }
 
-  _renderErrors(field) {
+  _renderErrors = (field) => {
     const { errors } = this.props;
 
     if (!errors) return false;
@@ -40,7 +40,7 @@ export default class BranchForm extends React.Component {
     });
   }
 
-  _handleCancelClick(e) {
+  _handleCancelClick = (e) => {
     e.preventDefault();
 
     this.props.onCancelClick();
@@ -51,13 +51,13 @@ export default class BranchForm extends React.Component {
     const buttonText   = this.props.branch ? 'Обновить ветвь' : 'Сохранить ветвь';
 
     return (
-      <PageClick onClick={::this._handleCancelClick}>
+      <PageClick onClick={this._handleCancelClick}>
         <div className="list form">
           <div className="inner">
-            <form id="new_branch_form" onSubmit={::this._handleSubmit}>
+            <form id="new_branch_form" onSubmit={this._handleSubmit}>
               <input ref="name" id="branch_name" type="text" defaultValue={defaultValue} placeholder="Добавить новую ветвь..." required="true"/>
-              {::this._renderErrors('name')}
-              <Button type="submit">{buttonText}</Button> или <a href="#" onClick={::this._handleCancelClick}>отмена</a>
+              {this._renderErrors('name')}
+              <Button type="submit">{buttonText}</Button> или <a href="#" onClick={this._handleCancelClick}>отмена</a>
             </form>
           </div>
         </div>

@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react'
-import { Redirect, Route } from 'react-router-dom'
+import React from 'react'
+import { Switch,Redirect, Route } from 'react-router-dom'
 
 import Forest              from './containers/forest'
 
@@ -14,7 +14,7 @@ import LeafletShowView      from './components/leaflet/show'
 export default function Routes(store) {
 
   return (
-    <Fragment>
+    <Switch>
       <Route path="/sign_in" component={Session} />
       <Route path="/sign_up" component={Registration} />
       <Route exact path="/" render={() => <Redirect to="/sign_in"/>} />
@@ -23,6 +23,6 @@ export default function Routes(store) {
         <TreeShowView params={match.params}>
           <PrivateRoute path="leaflet/:id" component={LeafletShowView}/>
         </TreeShowView>} />
-    </Fragment>
+    </Switch>
   )
 }

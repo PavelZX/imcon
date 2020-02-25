@@ -8,25 +8,26 @@ import { Button, Divider, Container, Grid, Header, Icon, Image, Item, Label, Men
 import Actions            from '../../redux/actions/current_leaflet'
 
 export default class MemberSelector extends React.Component {
-  _close(e) {
+  
+  _close = (e) => {
     e.preventDefault();
 
     this.props.close();
   }
 
-  _removeMember(memberId) {
+  _removeMember = (memberId) => {
     const { dispatch, channel, leafletId } = this.props;
 
     dispatch(Actions.removeMember(channel, leafletId, memberId));
   }
 
-  _addMember(memberId) {
+  _addMember = (memberId) => {
     const { dispatch, channel, leafletId } = this.props;
 
     dispatch(Actions.addMember(channel, leafletId, memberId));
   }
 
-  _renderMemberList() {
+  _renderMemberList = () => {
     const { boardMember, selectedMember } = this.props;
 
     const member = boardMember.map((member) => {
@@ -64,10 +65,10 @@ export default class MemberSelector extends React.Component {
 
   render() {
     return (
-      <PageClick onClick={::this._close}>
+      <PageClick onClick={this._close}>
         <div className="members-selector">
-          <header>Участники <a className="close" onClick={::this._close} href="#"><Icon name="close" /></a></header>
-          {::this._renderMemberList()}
+          <header>Участники <a className="close" onClick={this._close} href="#"><Icon name="close" /></a></header>
+          {this._renderMemberList()}
         </div>
       </PageClick>
     );

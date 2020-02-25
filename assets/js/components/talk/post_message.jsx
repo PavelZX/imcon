@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { PropTypes }          from 'prop-types'
 import ReactDOM from 'react-dom'
-import { Overlay, Popover} from 'react-bootstrap'
-import getPosition from 'dom-helpers/query/position'
+import { Image, Menu, Container, Grid, Segment, Sidebar, Popup, Dropdown, Icon, Label } from 'semantic-ui-react'
 import Keycode from '../../redux/constants/Keycode'
 import _ from "lodash"
 
@@ -22,7 +21,33 @@ export default class PostMessage extends Component {
     }
   }
 
-  handleKeyDown(e) {
+  getPosition(el) {
+    var xPos = 0;
+    var yPos = 0;
+   
+    while (el) {
+      if (el.tagName == "BODY") {
+        // deal with browser quirks with body/window/document and page scroll
+        var xScroll = el.scrollLeft || document.documentElement.scrollLeft;
+        var yScroll = el.scrollTop || document.documentElement.scrollTop;
+   
+        xPos += (el.offsetLeft - xScroll + el.clientLeft);
+        yPos += (el.offsetTop - yScroll + el.clientTop);
+      } else {
+        // for all other non-BODY elements
+        xPos += (el.offsetLeft - el.scrollLeft + el.clientLeft);
+        yPos += (el.offsetTop - el.scrollTop + el.clientTop);
+      }
+   
+      el = el.offsetParent;
+    }
+    return {
+      x: xPos,
+      y: yPos
+    };
+  }
+
+  handleKeyDown (e) => {
     let {showSuggestions, suggestionUsers} = this.state
     if (showSuggestions && suggestionUsers.length > 0) {
       this.handleSuggestionKeyDown(e)
@@ -31,7 +56,7 @@ export default class PostMessage extends Component {
     }
   }
 
-  handleSuggestionKeyDown(e) {
+  handleSuggestionKeyDown (e) => {
     switch (e.which) {
       case Keycode.up:
         e.preventDefault()
@@ -59,7 +84,7 @@ export default class PostMessage extends Component {
     this.setState({selectedSuggestionIndex: result})
   }
 
-  handleNormalKeyDown(e) {
+  handleNormalKeyDown (e) => {
     const text = e.target.value.trim()
     const {onPost} = this.props
     if (e.which === Keycode.enter) {
@@ -67,7 +92,7 @@ export default class PostMessage extends Component {
     }
   }
 
-  handleChange(e) {
+  handleChange (e) => {
     const text = e.target.value
     this.props.onChange(text)
     let match = text.match(queryRegex)
@@ -99,11 +124,11 @@ export default class PostMessage extends Component {
     }
   }
 
-  resetSuggestions() {
+  resetSuggestions () => {
     this.setState({showSuggestions: false, suggestionUsers: []})
   }
 
-  _getPopoverStyle() {
+  _getPopoverStyle () => {
     let target = this.state.target
     if (target) {
       let position = getPosition(target)
@@ -118,30 +143,38 @@ export default class PostMessage extends Component {
     }
   }
 
-  render() {
+  render () => {
     return (
       <div className="message-input">
         <input type='text' className="form-control" value={this.props.message}
-          onChange={::this.handleChange}
-          onKeyDown={::this.handleKeyDown} />
+          onChange={this.handleChange}
+          onKeyDown={this.handleKeyDown} />
         {this._renderSuggestion()}
       </div>
     )
   }
 
-  _renderSuggestion() {
+  _renderSuggestion () => {
     let title = `Users matching "${this.state.suggestionQuery}"`
     return (
-      <Overlay show={this.state.showSuggestions}
-               target={()=> ReactDOM.findDOMNode(this.state.target)}
-               placement="top"
-               containerPadding={20}>
-        <Popover title={title} id="foo" className="noarrow-popover suggestion-panel" style={this._getPopoverStyle()} positionLeft={100}>
-          <ul className="list-unstyled suggestion-list">
+      <Sidebar.Pushable as={Segment}>
+      <Sidebar
+        as={()=> ReactDOM.findDOMNode(this.state.target)}
+        animation='overlay'
+        icon='labeled'
+        inverted
+        onHide={ () => => setVisible(false)}
+        vertical
+        visible={this.state.showSuggestions}
+        width='thin'
+      >
+        <Popup title={title} style={this._getPopoverStyle()} positionLeft={100}>
+          <ul className="list">
             {this.state.suggestionUsers.map((user, index) => this._renderSuggestionUser(user, index))}
           </ul>
-        </Popover>
-      </Overlay>
+        </Popup>
+      </Sidebar>
+    </Sidebar.Pushable>
     )
   }
 

@@ -12,13 +12,13 @@ import MemberSelector    from './member_selector'
 import TagSelector       from './tag_selector'
 
 export default class LeafletModal extends React.Component {
-  componentDidUpdate() {
+  componentDidUpdate () {
     const { edit } = this.props;
 
     if (edit) this.refs.name.focus();
   }
 
-  _closeModal(e) {
+  _closeModal = (e) => {
     e.preventDefault();
 
     const { dispatch, treeId } = this.props;
@@ -26,12 +26,12 @@ export default class LeafletModal extends React.Component {
     dispatch(push(`/tree/${treeId}`));
   }
 
-  _renderCommentForm() {
+  _renderCommentForm = () => {
     const { currentUser } = this.props;
 
     return (
       <div className="form-wrapper">
-        <form onSubmit={::this._handleCommentFormSubmit}>
+        <form onSubmit={this._handleCommentFormSubmit}>
           <header>
             <h4>Добавить заметку</h4>
           </header>
@@ -51,7 +51,7 @@ export default class LeafletModal extends React.Component {
     );
   }
 
-  _handleCommentFormSubmit(e) {
+  _handleCommentFormSubmit = (e) => {
     e.preventDefault();
 
     const { id } = this.props.leaflet;
@@ -98,20 +98,20 @@ export default class LeafletModal extends React.Component {
     );
   }
 
-  _handleHeaderClick(e) {
+  _handleHeaderClick = (e) => {
     e.preventDefault();
 
     const { dispatch } = this.props;
     dispatch(Actions.editLeaflet(true));
   }
 
-  _handleCancelClick(e) {
+  _handleCancelClick = (e) => {
     e.preventDefault();
     const { dispatch } = this.props;
     dispatch(Actions.editLeaflet(false));
   }
 
-  _handleFormSubmit(e) {
+  _handleFormSubmit = (e) => {
     e.preventDefault();
 
     const { name, description } = this.refs;
@@ -126,13 +126,13 @@ export default class LeafletModal extends React.Component {
     dispatch(TreeActions.updateLeaflet(channel, leaflet));
   }
 
-  _renderHeader() {
+  _renderHeader = () => {
     const { leaflet, edit } = this.props;
 
     if (edit) {
       return (
         <header className="editing">
-          <form onSubmit={::this._handleFormSubmit}>
+          <form onSubmit={this._handleFormSubmit}>
             <input
               ref="name"
               type="text"
@@ -145,7 +145,7 @@ export default class LeafletModal extends React.Component {
               placeholder="Описание карточки"
               rows="5"
               defaultValue={leaflet.description} />
-            <Button type="submit">Записать листок</Button> или <a href="#" onClick={::this._handleCancelClick}>отмена</a>
+            <Button type="submit">Записать листок</Button> или <a href="#" onClick={this._handleCancelClick}>отмена</a>
           </form>
         </header>
       );
@@ -154,18 +154,18 @@ export default class LeafletModal extends React.Component {
         <header>
           <h3>{leaflet.name}</h3>
           <div className="items-wrapper">
-            {::this._renderMember()}
-            {::this._renderTags()}
+            {this._renderMember()}
+            {this._renderTags()}
           </div>
           <h5>Описание</h5>
           <p>{leaflet.description}</p>
-          <a href="#" onClick={::this._handleHeaderClick}>изменить</a>
+          <a href="#" onClick={this._handleHeaderClick}>изменить</a>
         </header>
       );
     }
   }
 
-  _renderMember() {
+  _renderMember = () => {
     const { member } = this.props.leaflet;
 
     if (member.length == 0) return false;
@@ -182,7 +182,7 @@ export default class LeafletModal extends React.Component {
     );
   }
 
-  _renderTags() {
+  _renderTags = () => {
     const { tag } = this.props.leaflet;
 
     if (tag.length == 0) return false;
@@ -199,7 +199,7 @@ export default class LeafletModal extends React.Component {
     );
   }
 
-  _handleShowMemberClick(e) {
+  _handleShowMemberClick = (e) => {
     e.preventDefault();
 
     const { dispatch } = this.props;
@@ -207,7 +207,7 @@ export default class LeafletModal extends React.Component {
     dispatch(Actions.showMemberSelector(true));
   }
 
-  _handleShowTagsClick(e) {
+  _handleShowTagsClick = (e) => {
     e.preventDefault();
 
     const { dispatch } = this.props;
@@ -215,7 +215,7 @@ export default class LeafletModal extends React.Component {
     dispatch(Actions.showTagsSelector(true));
   }
 
-  _renderMemberSelector() {
+  _renderMemberSelector = () => {
     const { leaflet, treeMember, showMemberSelector, dispatch, channel } = this.props;
     const { member } = leaflet;
 
@@ -228,17 +228,17 @@ export default class LeafletModal extends React.Component {
         dispatch={dispatch}
         treeMember={treeMember}
         selectedMember={member}
-        close={::this._onMemberSelectorClose} />
+        close={this._onMemberSelectorClose} />
     );
   }
 
-  _onMemberSelectorClose() {
+  _onMemberSelectorClose =() => {
     const { dispatch } = this.props;
 
     dispatch(Actions.showMemberSelector(false));
   }
 
-  _renderTagSelector() {
+  _renderTagSelector = () => {
     const { leaflet, showTagSelector, dispatch, channel } = this.props;
     const { tag } = leaflet;
 
@@ -250,43 +250,43 @@ export default class LeafletModal extends React.Component {
         leafletId={leaflet.id}
         dispatch={dispatch}
         selectedTag={tag}
-        close={::this._onTagSelectorClose} />
+        close={this._onTagSelectorClose} />
     );
   }
 
-  _onTagSelectorClose() {
+  _onTagSelectorClose = () => {
     const { dispatch } = this.props;
 
     dispatch(Actions.showTagSelector(false));
   }
 
-  render() {
+  render () {
     const { leaflet, treeMember, showMemberSelector } = this.props;
     const { member } = leaflet;
 
     return (
       <div className="md-overlay">
         <div className="md-modal">
-          <PageClick onClick={::this._closeModal}>
+          <PageClick onClick={this._closeModal}>
             <div className="md-content card-modal">
-              <a className="close" href="#" onClick={::this._closeModal}>
+              <a className="close" href="#" onClick={this._closeModal}>
                 <Icon name="close" />
               </a>
               <div className="info">
-                {::this._renderHeader()}
-                {::this._renderCommentForm()}
-                {::this._renderComment(leaflet)}
+                {this._renderHeader()}
+                {this._renderCommentForm()}
+                {this._renderComment(leaflet)}
               </div>
               <div className="options">
                 <h4>Добавить</h4>
-                <a className="button" href="#" onClick={::this._handleShowMemberClick}>
+                <a className="button" href="#" onClick={this._handleShowMemberClick}>
                   <Icon name="users"/> Участники
                 </a>
-                {::this._renderMemberSelector()}
-                <a className="button" href="#" onClick={::this._handleShowTagClick}>
+                {this._renderMemberSelector()}
+                <a className="button" href="#" onClick={this._handleShowTagClick}>
                   <Icon name="tags"/> Метки
                 </a>
-                {::this._renderTagSelector()}
+                {this._renderTagSelector()}
               </div>
             </div>
           </PageClick>

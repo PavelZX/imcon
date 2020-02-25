@@ -8,7 +8,7 @@ import Message from '../message/message'
 import PostMessage from './post_message'
 import UnreadDivider from './unread_divider'
 import { postMessage } from '../../redux/actions/messages'
-import { fetchMessages, changeTalk, changeNewMessage, markMessageRead } from '../../redux/actions/talk'
+import { fetchMessages, changeTalk, changeNewMessage, markMessageRead } from '../../redux/actions/talks'
 
 class Talk extends Component {
   constructor(props) {
@@ -16,14 +16,14 @@ class Talk extends Component {
     this.betterHandleScroll = _.debounce(::this.handleScroll, 200)
   }
 
-  componentDidMount() {
+  componentDidMount () => {
     this.talkNameChange(this.props)
     this.refs.messageList.addEventListener('scroll', this.betterHandleScroll)
     // handle the situation when messages is few
     window.setTimeout(()=> this.betterHandleScroll({target: this.refs.messageList}), 200)
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () => {
     this.refs.messageList.removeEventListener('scroll', this.betterHandleScroll)
   }
 
@@ -35,13 +35,13 @@ class Talk extends Component {
   }
 
   // http://blog.vjeux.com/2013/javascript/scroll-position-with-react.html
-  componentWillUpdate() {
+  componentWillUpdate () => {
     let node = this.refs.messageList
     this.shouldScrollBottom = (node.scrollTop + node.clientHeight) === node.scrollHeight
     this.cachedScrollHeight = node.scrollHeight
   }
 
-  componentDidUpdate() {
+  componentDidUpdate () => {
     let node = this.refs.messageList
     if (this.shouldScrollBottom) {
       node.scrollTop = node.scrollHeight
@@ -71,8 +71,8 @@ class Talk extends Component {
 
   _talkIdShouldChange(prevProps, nextProps) {
     return nextProps.params.id !== prevProps.params.id ||
-           nextProps.initTalksDone !== prevProps.initTalksDone ||
-           nextProps.initDirectTalksDone !== prevProps.initDirectTalksDone
+           nextProps.initTalkDone !== prevProps.initTalkDone ||
+           nextProps.initDirectTalkDone !== prevProps.initDirectTalkDone
   }
 
   talkNameChange(props) {
@@ -100,14 +100,14 @@ class Talk extends Component {
     )
   }
 
-  render() {
+  render () => {
     const {dispatch, messages, talkId, newMessage} = this.props
 
     return (
       <div className="chat-container">
         <div className="message-list" ref="messageList">
           <List items={messages}
-          renderItem={::this.renderItem} />
+          renderItem={this.renderItem} />
         </div>
         <PostMessage
           message={newMessage}
@@ -129,7 +129,7 @@ Talk.propTypes = {
 }
 
 function mapStateToProps(state) {
-  let {msgIdsById, initTalksDone, currentTalkId, newMessage, hasMore, unreadMsgsCounts} = state.talks
+  let {msgIdsById, initTalkDone, currentTalkId, newMessage, hasMore, unreadMsgsCounts} = state.talks
 
   let msgIds = msgIdsById[currentTalkId] || []
   let messages = _.compact(msgIds.map(id => state.messages.items[`${currentTalkId}:${id}`]))
@@ -138,11 +138,11 @@ function mapStateToProps(state) {
   return {
     hasMore,
     messages,
-    initTalksDone,
+    initTalkDone,
     unreadCount,
     talkId: currentTalkId,
     newMessage: newMessage[currentTalkId] || "",
-    initDirectTalksDone: state.directTalks.initDirectTalksDone,
+    initDirectTalkDone: state.directTalk.initDirectTalkDone,
     users: state.users
   }
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Modal } from 'react-bootstrap'
+import { Button, Header, Image, Modal } from 'semantic-ui-react'
 import Select from 'react-select'
 import _ from "lodash"
 
@@ -13,23 +13,23 @@ class JoinDirectTalk extends React.Component {
     this.state = {newUserId: null}
   }
 
-  close() {
+  close = () => {
     this.props.dispatch(closeJoinDirectTalkModal())
   }
 
-  confirm() {
+  confirm = () => {
     if (!this.state.newUserId) { return }
     this.props.dispatch(joinDirectTalk(this.state.newUserId, this.props.user.items))
   }
 
-  userChange(data) {
+  userChange = (data) => {
     this.setState({newUserId: data && data.value})
   }
 
   render() {
     const {local} = this.props
     return (
-      <Modal show={local.openJoinDirectTalkModal} onHide={::this.close}>
+      <Modal show={local.openJoinDirectTalkModal} onHide={this.close}>
         <Modal.Header closeButton>
           <Modal.Title>Новое прямое сообщение</Modal.Title>
         </Modal.Header>
@@ -37,13 +37,13 @@ class JoinDirectTalk extends React.Component {
           {this._renderUserSelect()}
         </Modal.Body>
         <Modal.Footer>
-          <button className='btn btn-success' onClick={::this.confirm}>Начать разговор</button>
+          <button className='btn btn-success' onClick={this.confirm}>Начать разговор</button>
         </Modal.Footer>
       </Modal>
     )
   }
 
-  _renderUserSelect() {
+  _renderUserSelect = () => {
     let {talks, user} = this.props
     let directTalk = talks.directIds.map((id) => talks.items[id])
     let otherUserIds = _.difference(user.ids, directTalk.map((ch) => ch.userId))
@@ -55,12 +55,12 @@ class JoinDirectTalk extends React.Component {
         value={this.state.newUserId}
         options={options}
         optionRenderer={this.renderOption.bind(this)}
-        onChange={::this.userChange}
+        onChange={this.userChange}
         />
     )
   }
 
-  renderOption(value) {
+  renderOption = (value) => {
     let {user} = this.props
     let talk = {name: value.label, userId: value.value}
     return (

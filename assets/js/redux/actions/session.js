@@ -49,7 +49,6 @@ const Actions = {
       .then((data) => {
         localStorage.setItem('phoenixAuthToken', data.jwt)
         setCurrentUser(dispatch, data.user)
-        console.log(SOS)
         dispatch(push('/ic'))
       })
       .catch((error) => {
@@ -101,6 +100,7 @@ const Actions = {
       httpGet('/api/v1/current_user')
       .then(function (data) {
         setCurrentUser(dispatch, data)
+        console.log(data)
       })
       .catch(function (error) {
         console.log(error)

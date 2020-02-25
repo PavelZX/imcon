@@ -53,13 +53,14 @@ const leafletTarget = {
 }))
 
 export default class Leaflet extends React.Component {
-  _handleClick(e) {
+  
+  _handleClick = (e) => {
     const { dispatch, id, treeId } = this.props;
 
     dispatch(push(`/tree/${treeId}/leaflet/${id}`));
   }
 
-  _renderFooter() {
+  _renderFooter = () => {
     let commentIcon = null;
     const { comment, member } = this.props;
 
@@ -81,7 +82,7 @@ export default class Leaflet extends React.Component {
     );
   }
 
-  _renderTag() {
+  _renderTag = () => {
     const { tag } = this.props;
 
     const tagNode = tag.map((tag) => {
@@ -111,11 +112,11 @@ export default class Leaflet extends React.Component {
 
     return connectDragSource(
       connectDropTarget(
-        <div id={`leaflet_${id}`} className={classes} style={styles} onClick={::this._handleClick}>
+        <div id={`leaflet_${id}`} className={classes} style={styles} onClick={this._handleClick}>
           <div className="card-content">
-            {::this._renderTag()}
+            {this._renderTag()}
             {name}
-            {::this._renderFooter()}
+            {this._renderFooter()}
           </div>
         </div>
       )

@@ -6,14 +6,14 @@ import { openNewTalkModal, openJoinTalkModal } from '../../redux/actions/local'
 import TalkNameBar from '../shared/talk_name_bar'
 
 class Talks extends React.Component {
-  render() {
+  render () => {
     const {dispatch, talks} = this.props
     let items = talks.ids.map(id => talks.items[id])
     return (
       <div>
         {this._renderTalkHeader()}
         <List items={items}
-              renderItem={::this._renderTalk}
+              renderItem={this._renderTalk}
               isLoading={talks.isFetching}/>
         {this._renderNewTalkButton()}
       </div>
@@ -45,7 +45,7 @@ class Talks extends React.Component {
     )
   }
 
-  _renderTalkHeader() {
+  _renderTalkHeader () => {
     const {dispatch} = this.props
     return (
       <div>
@@ -56,7 +56,7 @@ class Talks extends React.Component {
     )
   }
 
-  _renderNewTalkButton() {
+  _renderNewTalkButton () => {
     const {dispatch} = this.props
     return (
       <div>

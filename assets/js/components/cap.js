@@ -9,7 +9,7 @@ import Actions          from '../redux/actions/session'
 import CapActions       from '../redux/actions/cap'
 
 class Cap extends React.Component {
-  _handleTreeClick(e) {
+  _handleTreeClick (e) => {
     e.preventDefault()
 
     const { dispatch } = this.props
@@ -22,7 +22,7 @@ class Cap extends React.Component {
     }
   }
 
-  _renderTree() {
+  _renderTree () => {
     const { dispatch, currentTree, socket, cap } = this.props
 
     if (!cap.showTree) return false
@@ -48,19 +48,19 @@ class Cap extends React.Component {
           <Dropdown.Item> {ownedTreeItems} </Dropdown.Item>
           <Dropdown.Item> {invitedTreeItemsCap} </Dropdown.Item>
           <Dropdown.Item> {invitedTreeItems} </Dropdown.Item>
-          <Dropdown.Item as={Link} to="/ic"  onChange={::this._hideTree}> Показать все деревья </Dropdown.Item>
+          <Dropdown.Item as={Link} to="/ic"  onChange={this._hideTree}> Показать все деревья </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
     )
   }
 
-  _hideTree() {
+  _hideTree () => {
     const { dispatch } = this.props;
     dispatch(CapActions.showTree(false))
   }
 
   _createTreeItem(dispatch, currentTree, socket, tree) {
-    const onClick = (e) => {
+    const onClick =  (e) => => {
       e.preventDefault()
 
       if (currentTree.id != undefined && currentTree.id == tree.id) {
@@ -78,7 +78,7 @@ class Cap extends React.Component {
     )
   }
 
-  _renderCurrentUser() {
+  _renderCurrentUser () => {
     const { currentUser } = this.props
 
     if (!currentUser) {
@@ -94,29 +94,29 @@ class Cap extends React.Component {
     );
   }
 
-  _renderSignOutLink() {
+  _renderSignOutLink () => {
     if (!this.props.currentUser) {
       return false
     }
 
     return (
-      <Label as='a' href="#" onClick={::this._handleSignOutClick}><Icon name="sign out"/> Выйти</Label>
+      <Label as='a' href="#" onClick={this._handleSignOutClick}><Icon name="sign out"/> Выйти</Label>
     )
   }
 
-  _handleSignOutClick(e) {
+  _handleSignOutClick (e) => {
     e.preventDefault()
 
     this.props.dispatch(Actions.signOut())
   }
 
-  render() {
+  render () => {
     return (
       <Grid columns={5} relaxed>
         <Grid.Column>
           <Segment basic>
-            <Label as='a' href="#" onClick={::this._handleTreeClick}><Icon name="heartbeat"/> Деревья</Label>
-            {::this._renderTree()}
+            <Label as='a' href="#" onClick={this._handleTreeClick}><Icon name="heartbeat"/> Деревья</Label>
+            {this._renderTree()}
           </Segment>
         </Grid.Column> 
                   

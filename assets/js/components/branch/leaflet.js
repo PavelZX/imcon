@@ -70,7 +70,7 @@ const leafletTarget = {
 }))
 
 export default class BranchLeaflet extends React.Component {
-  _renderLeaflet() {
+  _renderLeaflet = () => {
     const { leaflet, dispatch, treeId } = this.props;
 
     return leaflet.map((leaflet) => {
@@ -80,12 +80,12 @@ export default class BranchLeaflet extends React.Component {
           dispatch={dispatch}
           treeId={treeId}
           {...leaflet}
-          onDrop={::this._handleDropLeaflet} />
+          onDrop={this._handleDropLeaflet} />
       );
     });
   }
 
-  _renderForm() {
+  _renderForm = () => {
     const { isAddingNewLeaflet } = this.props;
     if (!isAddingNewLeaflet) return false;
 
@@ -97,21 +97,21 @@ export default class BranchLeaflet extends React.Component {
         dispatch={dispatch}
         errors={formErrors}
         channel={channel}
-        onCancelClick={::this._hideLeafletForm}
-        onSubmit={::this._hideLeafletForm}/>
+        onCancelClick={this._hideLeafletForm}
+        onSubmit={this._hideLeafletForm}/>
     );
   }
 
-  _renderAddNewLeaflet() {
+  _renderAddNewLeaflet = () => {
     const { isAddingNewLeaflet } = this.props;
     if (isAddingNewLeaflet) return false;
 
     return (
-      <a className="add-new" href="#" onClick={::this._handleAddClick}>Добавить листик...</a>
+      <a className="add-new" href="#" onClick={this._handleAddClick}>Добавить листик...</a>
     );
   }
 
-  _handleAddClick(e) {
+  _handleAddClick = (e) => {
     e.preventDefault();
 
     const { dispatch, id } = this.props;
@@ -119,17 +119,17 @@ export default class BranchLeaflet extends React.Component {
     dispatch(Actions.showLeafletForm(id));
   }
 
-  _hideLeafletForm() {
+  _hideLeafletForm = () => {
     const { dispatch } = this.props;
 
     dispatch(Actions.showLeafletForm(null));
   }
 
-  _handleDropLeaflet({ source, target }) {
+  _handleDropLeaflet = ({ source, target }) => {
     this.props.onDropLeaflet({ source, target });
   }
 
-  _renderHeader() {
+  _renderHeader = () => {
     if (this.props.isEditing) {
       const { id, name, dispatch, channel } = this.props;
 
@@ -143,18 +143,18 @@ export default class BranchLeaflet extends React.Component {
           branch={data}
           dispatch={dispatch}
           channel={channel}
-          onCancelClick={::this._handleCancelEditFormClick}/>
+          onCancelClick={this._handleCancelEditFormClick}/>
       );
     } else {
       return (
-        <header onClick={::this._handleHeaderClick}>
+        <header onClick={this._handleHeaderClick}>
           <h4>{this.props.name}</h4>
         </header>
       );
     }
   }
 
-  _handleHeaderClick(e) {
+  _handleHeaderClick = (e) => {
     e.preventDefault();
 
     const { dispatch, id } = this.props;
@@ -162,13 +162,13 @@ export default class BranchLeaflet extends React.Component {
     dispatch(Actions.editBranch(id));
   }
 
-  _handleCancelEditFormClick() {
+  _handleCancelEditFormClick = () => {
     const { dispatch } = this.props;
 
     dispatch(Actions.editBranch(null));
   }
 
-  render() {
+  render () {
     const { id, connectDragSource, connectDropTarget, connectLeafletDropTarget, isDragging } = this.props;
 
     const styles = {
@@ -180,13 +180,13 @@ export default class BranchLeaflet extends React.Component {
         connectLeafletDropTarget(
           <div id={`branch_${id}`} className="list" style={styles}>
             <div className="inner">
-              {::this._renderHeader()}
+              {this._renderHeader()}
               <div className="cards-wrapper">
-                {::this._renderLeaflet()}
+                {this._renderLeaflet()}
               </div>
               <footer>
-                {::this._renderForm()}
-                {::this._renderAddNewLeaflet()}
+                {this._renderForm()}
+                {this._renderAddNewLeaflet()}
               </footer>
             </div>
           </div>

@@ -6,7 +6,7 @@ import { openJoinDirectTalkModal } from '../../redux/actions/local'
 import TalkNameBar from '../shared/talk_name_bar'
 
 class DirectTalk extends React.Component {
-  render () => {
+  render() {
     const {dispatch, talks} = this.props
     let items = talks.directIds.map(id => talks.items[id])
     return (
@@ -19,23 +19,23 @@ class DirectTalk extends React.Component {
     )
   }
 
-  _unreadCount(count) {
+  _unreadCount = (count) => {
     if (count && count >= 0) {
       return `(${count})`
     }
   }
-  _talkClass(talk) {
+  _talkClass = (talk) => {
     let classes = ["talk-nav"]
     if (talk.id === this.props.talks.currentTalkId) {
       classes.push("-active")
     }
     return classes.join(' ')
   }
-  _talkName(talk) {
+  _talkName = (talk) => {
     let {users} = this.props
     return users.items[talk.userId].username
   }
-  _renderDirectTalk(talk) {
+  _renderDirectTalk = (talk) => {
     const {talks} = this.props
     let unread = talks.unreadMsgsCounts[talk.id]
     return (
@@ -48,7 +48,7 @@ class DirectTalk extends React.Component {
     )
   }
 
-  _renderDirectTalkHeader () => {
+  _renderDirectTalkHeader = () => {
     const {dispatch} = this.props
     return (
       <div className='list-unstyled sidebar-item header-item'>

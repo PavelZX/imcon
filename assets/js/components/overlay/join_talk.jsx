@@ -29,15 +29,15 @@ class JoinTalk extends React.Component {
   render() {
     const {local} = this.props
     return (
-      <Modal show={local.openJoinTalkModal} onHide={this.close}>
-        <Modal.Header closeButton>
+      <Modal show={local.openJoinTalkModal}>
+        <Modal.Header closeButton onClick={this.close}>
           <Modal.Title>Присоединяйтесь к разговору</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {this._renderTalkSelect()}
         </Modal.Body>
         <Modal.Footer>
-          <button className='btn btn-success' onClick={this.confirm}>Присоединяйтесь к разговору</button>
+          <Button className='btn btn-success' onClick={this.confirm}>Присоединяйтесь к разговору</Button>
         </Modal.Footer>
       </Modal>
     )

@@ -29,15 +29,15 @@ class JoinDirectTalk extends React.Component {
   render() {
     const {local} = this.props
     return (
-      <Modal show={local.openJoinDirectTalkModal} onHide={this.close}>
-        <Modal.Header closeButton>
+      <Modal show={local.openJoinDirectTalkModal}>
+        <Modal.Header closeButton onClick={this.close}>
           <Modal.Title>Новое прямое сообщение</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {this._renderUserSelect()}
         </Modal.Body>
         <Modal.Footer>
-          <button className='btn btn-success' onClick={this.confirm}>Начать разговор</button>
+          <Button className='btn btn-success' onClick={this.confirm}>Начать разговор</Button>
         </Modal.Footer>
       </Modal>
     )

@@ -8,7 +8,7 @@ import { Button, Divider, Container, Grid, Header, Icon, Image, Item, Label, Men
 import Actions            from '../../redux/actions/current_leaflet'
 
 export default class TagSelector extends React.Component {
-  _close (e) => {
+  _close = (e) => {
     e.preventDefault();
 
     this.props.close();
@@ -20,7 +20,7 @@ export default class TagSelector extends React.Component {
   // dispatch(Actions.removeTag(channel, leafletId, tag));
   // }
 
-  _addTag(tag) {
+  _addTag = (tag) => {
     const { dispatch, channel, leafletId, selectedTag } = this.props;
 
     selectedTag.push(tag);
@@ -28,7 +28,7 @@ export default class TagSelector extends React.Component {
     dispatch(Actions.updateTag(channel, leafletId, selectedTag));
   }
 
-  _removeTag(tag) {
+  _removeTag = (tag) => {
     const { dispatch, channel, leafletId, selectedTag } = this.props;
 
     selectedTag.splice(selectedTag.indexOf(tag), 1);
@@ -36,7 +36,7 @@ export default class TagSelector extends React.Component {
     dispatch(Actions.updateTag(channel, leafletId, selectedTag));
   }
 
-  _renderTagList () => {
+  _renderTagList = () => {
     const { selectedTag } = this.props;
 
     const tag = ['green', 'yellow', 'orange', 'red', 'purple', 'blue'];
@@ -44,7 +44,7 @@ export default class TagSelector extends React.Component {
     const tagNode = tag.map((tag) => {
       const isSelected = -1 != selectedTag.indexOf(tag);
 
-      const handleOnClick =  (e) => => {
+      const handleOnClick = (e) => {
         e.preventDefault();
 
         return isSelected ? this._removeTag(tag) : this._addTag(tag);
@@ -77,7 +77,7 @@ export default class TagSelector extends React.Component {
     );
   }
 
-  render () => {
+  render() {
     return (
       <PageClick onClick={this._close}>
         <div className="tags-selector">

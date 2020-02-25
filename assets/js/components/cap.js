@@ -9,7 +9,7 @@ import Actions          from '../redux/actions/session'
 import CapActions       from '../redux/actions/cap'
 
 class Cap extends React.Component {
-  _handleTreeClick (e) => {
+  _handleTreeClick = (e) => {
     e.preventDefault()
 
     const { dispatch } = this.props
@@ -22,7 +22,7 @@ class Cap extends React.Component {
     }
   }
 
-  _renderTree () => {
+  _renderTree = () => {
     const { dispatch, currentTree, socket, cap } = this.props
 
     if (!cap.showTree) return false
@@ -54,13 +54,13 @@ class Cap extends React.Component {
     )
   }
 
-  _hideTree () => {
+  _hideTree = () => {
     const { dispatch } = this.props;
     dispatch(CapActions.showTree(false))
   }
 
-  _createTreeItem(dispatch, currentTree, socket, tree) {
-    const onClick =  (e) => => {
+  _createTreeItem (dispatch, currentTree, socket, tree) {
+    const onClick = (e) => {
       e.preventDefault()
 
       if (currentTree.id != undefined && currentTree.id == tree.id) {
@@ -78,7 +78,7 @@ class Cap extends React.Component {
     )
   }
 
-  _renderCurrentUser () => {
+  _renderCurrentUser = () => {
     const { currentUser } = this.props
 
     if (!currentUser) {
@@ -94,7 +94,7 @@ class Cap extends React.Component {
     );
   }
 
-  _renderSignOutLink () => {
+  _renderSignOutLink = () => {
     if (!this.props.currentUser) {
       return false
     }
@@ -104,13 +104,13 @@ class Cap extends React.Component {
     )
   }
 
-  _handleSignOutClick (e) => {
+  _handleSignOutClick = (e) => {
     e.preventDefault()
 
     this.props.dispatch(Actions.signOut())
   }
 
-  render () => {
+  render() {
     return (
       <Grid columns={5} relaxed>
         <Grid.Column>

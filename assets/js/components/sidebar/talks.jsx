@@ -6,7 +6,8 @@ import { openNewTalkModal, openJoinTalkModal } from '../../redux/actions/local'
 import TalkNameBar from '../shared/talk_name_bar'
 
 class Talks extends React.Component {
-  render () => {
+
+  render() {
     const {dispatch, talks} = this.props
     let items = talks.ids.map(id => talks.items[id])
     return (
@@ -20,19 +21,19 @@ class Talks extends React.Component {
     )
   }
 
-  _unreadCount(count) {
+  _unreadCount = (count) => {
     if (count && count >= 0) {
       return `(${count})`
     }
   }
-  _talkClass(talk) {
+  _talkClass = (talk) => {
     let classes = ["talk-nav"]
     if (talk.id === this.props.talks.currentTalkId) {
       classes.push("-active")
     }
     return classes.join(' ')
   }
-  _renderTalk(talk) {
+  _renderTalk = (talk) => {
     const {talks} = this.props
     let unread = talks.unreadMsgsCounts[talk.id]
     return (
@@ -45,7 +46,7 @@ class Talks extends React.Component {
     )
   }
 
-  _renderTalkHeader () => {
+  _renderTalkHeader = () => {
     const {dispatch} = this.props
     return (
       <div>
@@ -56,7 +57,7 @@ class Talks extends React.Component {
     )
   }
 
-  _renderNewTalkButton () => {
+  _renderNewTalkButton = () => {
     const {dispatch} = this.props
     return (
       <div>

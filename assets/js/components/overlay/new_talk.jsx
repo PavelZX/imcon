@@ -6,7 +6,7 @@ import { createTalk } from '../../redux/actions/talks'
 import ErrorMessage from '../shared/error_message'
 
 export default class NewTalk extends React.Component {
-  
+
   close = () => {
     const {dispatch} = this.props
     dispatch(closeNewTalkModal())
@@ -21,8 +21,8 @@ export default class NewTalk extends React.Component {
   render() {
     const {local, error} = this.props
     return (
-      <Modal show={local.openNewTalkModal} onHide={this.close}>
-        <Modal.Header closeButton>
+      <Modal show={local.openNewTalkModal}>
+        <Modal.Header closeButton onClick={this.close}>
           <Modal.Title>Новый разговор</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -31,7 +31,7 @@ export default class NewTalk extends React.Component {
                  ref="newTalkName"></input>
         </Modal.Body>
         <Modal.Footer>
-          <button className='btn btn-success' onClick={this.confirm}>Create</button>
+          <Button className='btn btn-success' onClick={this.confirm}>Create</Button>
         </Modal.Footer>
       </Modal>
     )

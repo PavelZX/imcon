@@ -1,7 +1,7 @@
 import * as types from '../constants/action_types'
 
 const initialState = {
-  initDirectTalkDone: false
+  initDirectTalksDone: false
 }
 
 export default function directTalk(state = initialState, action) {
@@ -9,7 +9,7 @@ export default function directTalk(state = initialState, action) {
     case types.INIT_DIRECT_TALK_DONE:
       return {
         ...state,
-        initDirectTalkDone: true
+        initDirectTalksDone: true
       }
       break
     default:

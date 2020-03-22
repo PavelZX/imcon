@@ -35,10 +35,7 @@ class Forest extends Component {
         <Grid divided='vertically'>
           <Grid.Row>
             <Grid.Column>
-              <HomeView />
-            </Grid.Column>
-            <Grid.Column>
-              { this.props.children || 'Приветствую в нашем лесу!' }
+              <HomeView {...{currentUser, tree, socket, currentTree}}/>
             </Grid.Column>
           </Grid.Row>
       
@@ -48,9 +45,6 @@ class Forest extends Component {
             </Grid.Column>
             <Grid.Column>
               <Sidebar dispatch={dispatch} talks={talks} directTalk={directTalk} user={user}/>  
-            </Grid.Column>
-            <Grid.Column>
-              {  || 'Welcome to ExChat! A Slack-like app by Elixir, Phoenix & React(redux)' }
             </Grid.Column>
           </Grid.Row>
         </Grid>

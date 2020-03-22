@@ -1,8 +1,8 @@
-import { Schema, arrayOf } from 'normalizr'
+import { normalize, schema } from 'normalizr'
 
-const talkSchema = new Schema('talks', {idAttribute: 'id'})
-const messageSchema = new Schema('messages', {idAttribute: 'ts'})
-const userSchema    = new Schema('user', {idAttribute: 'id'})
+const talkSchema = new schema.Entity('talks', {idAttribute: 'id'})
+const messageSchema = new schema.Entity('messages', {idAttribute: 'ts'})
+const userSchema    = new schema.Entity('user', {idAttribute: 'id'})
 
 messageSchema.define({
   talk: talkSchema
@@ -10,9 +10,9 @@ messageSchema.define({
 
 const Schemas = {
   talk: talkSchema,
-  talkArray: arrayOf(talkSchema),
+  talkArray: normalize([talkSchema]),
   message: messageSchema,
-  messageArray: arrayOf(messageSchema),
-  userArray: arrayOf(userSchema)
+  messageArray: normalize([messageSchema]),
+  userArray: normalize([userSchema])
 }
 export default Schemas

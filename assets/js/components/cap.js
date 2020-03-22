@@ -3,7 +3,7 @@ import { connect }      from 'react-redux'
 import { Link }         from 'react-router-dom'
 import ReactGravatar    from 'react-gravatar'
 import { push }         from 'react-router-redux'
-import { Image, Menu, Container, Grid, Segment, Dropdown, Icon, Label } from 'semantic-ui-react'
+import { Image, Menu, Container, Header, Grid, Segment, Dropdown, Icon, Label } from 'semantic-ui-react'
 
 import Actions          from '../redux/actions/session'
 import CapActions       from '../redux/actions/cap'
@@ -33,13 +33,13 @@ class Cap extends React.Component {
       return this._createTreeItem(dispatch, currentTree, socket, tree)
     })
 
-    const ownedTreeItemsCap = ownedTreeItems.length > 0 ? <header className="title"><Icon name="user"/> Собственные деревья</header> : null
+    const ownedTreeItemsCap = ownedTreeItems.length > 0 ? <Header><Icon name="user"/> Собственные деревья</Header> : null
 
     const invitedTreeItems = invitedTree.map((tree) => {
       return this._createTreeItem(dispatch, currentTree, socket, tree)
     })
 
-    const invitedTreeItemsCap = invitedTreeItems.length > 0 ? <header className="title"><Icon name="users"/> Другие деревья</header> : null
+    const invitedTreeItemsCap = invitedTreeItems.length > 0 ? <Header><Icon name="users"/> Другие деревья</Header> : null
 
     return (
       <Dropdown>

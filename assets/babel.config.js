@@ -8,10 +8,11 @@ module.exports = {
   ],
   plugins: [
     'styled-components',
-    "transform-function-bind",
+    'transform-function-bind',
     '@babel/plugin-syntax-dynamic-import',
-    ["@babel/plugin-proposal-decorators", { "legacy": true }],
-    ["@babel/plugin-proposal-class-properties", { "loose": true }]
+    '@babel/plugin-proposal-numeric-separator',
+    ['@babel/plugin-proposal-decorators', { "legacy": true }],
+    ['@babel/plugin-proposal-class-properties', { "loose": true }]
   ],
   env: {
     production: {

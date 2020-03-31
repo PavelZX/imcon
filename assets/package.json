@@ -73,7 +73,7 @@
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
-    "next": "^7.0.2",
+    "next": "^9.3.3",
     "normalizr": "^3.0.6",
     "phoenix": "file:../deps/phoenix",
     "phoenix_html": "file:../deps/phoenix_html",

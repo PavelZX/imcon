@@ -12,8 +12,8 @@ config :logger, level: :warn
 # Configure your database
 config :imcon, Imcon.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "pavelz",
-  password: "bOOm757s#",
-  database: "im_con",
-  hostname: "82.146.44.66",
+  username: "postgres",
+  password: "postgres",
+  database: "postgres",
+  hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
